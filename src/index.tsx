@@ -1,6 +1,7 @@
 import * as esbuild from 'esbuild-wasm'
 import { useState, useRef, useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin'
 
 const App = () => {
   const [code, setCode] = useState('')
@@ -21,12 +22,22 @@ const App = () => {
 
   const onClick = async () => {
     if (!ref.current) return
-    const result = await ref.current.transform(textAreaRef?.current?.value, {
-      loader: 'jsx',
-      target: 'es2015',
+    // const result = await ref.current.transform(textAreaRef?.current?.value, {
+    //   loader: 'jsx',
+    //   target: 'es2015',
+    // })
+    const result = await ref.current.build({
+      entryPoints: ['index.js'],
+      bundle: true,
+      write: false,
+      plugins: [unpkgPathPlugin()],
+      define: {
+        'process.env.NODE_ENV': '"production"',
+        global: 'window',
+      },
     })
-
-    setCode(result.code)
+    // console.log(result)
+    setCode(result.outputFiles[0].text)
   }
   return (
     <div>
