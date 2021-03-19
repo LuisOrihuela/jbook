@@ -23,19 +23,19 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
     monacoEditor.getModel()?.updateOptions({ tabSize: 2 })
 
     //configuration to get jsx syntax highlighting
-    const highlighter = new Highlighter(
-      // @ts-ignore
-      window.monaco,
-      codeShift,
-      monacoEditor,
-    )
+    // const highlighter = new Highlighter(
+    //   // @ts-ignore
+    //   window.monaco,
+    //   codeShift,
+    //   monacoEditor,
+    // )
 
-    highlighter.highLightOnDidChangeModelContent(
-      () => {},
-      () => {},
-      undefined,
-      () => {},
-    )
+    // highlighter.highLightOnDidChangeModelContent(
+    //   () => {},
+    //   () => {},
+    //   undefined,
+    //   () => {},
+    // )
   }
   const onFormatClick = () => {
     //get current value from editor
